@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Local Storage</title>
+		<!-- Latest compiled and minified CSS & JS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+	<script src="http://code.jquery.com/jquery.js"></script>
+	<script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
+</head>
+<body>
+	<h4>Alış-Veriş Sepetim</h4>
+	<input class='input' type='text'>
+	<button class='add-item'> Sepeti Tamamla</button>
+	<button class="update"> Sepeti Çıkar </button>
+	<ul class='list'>
+
+	</ul>
+  <script>
+$(document).ready(function() {
+  var $button = $('.add-item');
+  var $input = $('.input');
+  var $list = $('.list');
+  if (localStorage.getItem('user-input')) {
+    $list.html(localStorage.getItem('user-input'));
+  } 
+  $button.on('click', function() {
+
+    $list.append('<li>' + $input.val() + '<span class ="close"> x</span></li>');
+    localStorage.setItem('user-input', $list.html());
+
+    $input.val('');
+
+  });
+  $('.list').click('li', function() {
+
+    $('.list li').attr('contenteditable', 'true');
+  });
+  $('.update').on('click', function() {
+    console.log('update');
+    localStorage.setItem('user-input', $list.html());
+  });
+
+  $('.list').on('click', '.close', function() {
+    $(this).parent().remove();
+    localStorage.setItem('user-input', $list.html());
+  });
+ localStorage.clear();
+});
+  </script>
+
+</body>
+</html>
